@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
-import { BACKEND_BASE } from "@/lib/constants";
+import { FRONTEND_BASE } from "@/lib/constants";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import {
-    AxiosAcceptType,
-    AxiosContentType,
-    AxiosResponseType,
-    ListPaginatedResponse,
-} from "backend";
+import { AxiosContentType } from "backend";
+import { GraphQLClient } from "graphql-request";
 
 type AxiosWrapperType<GenericRes> = {
     data: GenericRes;
@@ -16,43 +12,41 @@ type AxiosWrapperType<GenericRes> = {
 export type AxiosClientProps = {
     endpoint?: string;
     contentType?: AxiosContentType;
-    acceptType?: AxiosAcceptType;
-    responseType?: AxiosResponseType;
     baseURL?: string;
+    gqlQuery?: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 class AxiosClient<GenericReq, GenericRes = {}> {
     endpoint: string;
     instance: AxiosInstance;
+    gqlInstance: GraphQLClient;
     headers: Record<string, string>;
     url: string;
+    query: string;
 
     constructor({
         endpoint,
-        contentType = "multipart/form-data",
-        acceptType,
-        baseURL = BACKEND_BASE,
-        responseType,
+        contentType = "application/json",
+        baseURL = FRONTEND_BASE,
+        gqlQuery = "",
     }: AxiosClientProps) {
         const axiosInstance = axios.create({
             baseURL,
         });
 
-        // intercept all outgoing requests and attach a Bearer token to them if the user is signed-in
-        axiosInstance.interceptors.request.use((config) => {
-            // set the headers
-            config.headers["Content-Type"] = contentType;
-
-            acceptType && (config.headers["Accept"] = acceptType);
-            responseType && (config.headers["Content-Type"] = responseType);
-
-            return config;
+        const gqlInstance = new GraphQLClient(baseURL, {
+            headers: {
+                "CANOPY-API-KEY": process.env.CANOPY_API_KEY || "none",
+                "Content-Type": contentType,
+            } as unknown as { [key: string]: string },
         });
 
         this.endpoint = endpoint || "";
+        this.gqlInstance = gqlInstance;
         this.instance = axiosInstance;
         this.url = baseURL;
+        this.query = gqlQuery;
         this.headers = {};
     }
 
@@ -61,7 +55,7 @@ class AxiosClient<GenericReq, GenericRes = {}> {
         headers: { ...this.headers, ...config?.headers },
     });
 
-    getItem = async (config?: AxiosRequestConfig) =>
+    get = async (config?: AxiosRequestConfig) =>
         await this.instance
             .get<GenericReq, AxiosWrapperType<GenericRes>>(
                 this.endpoint,
@@ -71,30 +65,6 @@ class AxiosClient<GenericReq, GenericRes = {}> {
             .catch((res) => {
                 // console.error(res);
                 return res as GenericRes;
-            });
-
-    getList = async (config?: AxiosRequestConfig) =>
-        await this.instance
-            .get<GenericReq, AxiosWrapperType<GenericRes>>(
-                this.endpoint,
-                this.combineConfig(config),
-            )
-            .then((res) => res.data)
-            .catch((res) => {
-                // console.error(res);
-                return res?.response?.data as GenericRes;
-            });
-
-    getPaginated = async (config?: AxiosRequestConfig) =>
-        await this.instance
-            .get<GenericReq, AxiosWrapperType<ListPaginatedResponse<GenericRes>>>(
-                this.endpoint,
-                this.combineConfig(config),
-            )
-            .then((res) => res.data)
-            .catch((res) => {
-                // console.error(res);
-                return res?.response?.data as ListPaginatedResponse<GenericRes>;
             });
 
     post = async (body?: GenericReq, config?: AxiosRequestConfig) =>
@@ -133,6 +103,8 @@ class AxiosClient<GenericReq, GenericRes = {}> {
             .catch((res) => {
                 return res?.response?.data as GenericRes;
             });
+
+    gql = async () => await this.gqlInstance.request(this.query, { first: 10 });
 }
 
 export default AxiosClient;

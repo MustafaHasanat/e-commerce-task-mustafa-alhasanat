@@ -1,1 +1,1 @@
-export { Routs, Endpoints } from "./app";
+export { Routs } from "./app";

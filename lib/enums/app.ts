@@ -3,7 +3,6 @@
 // routes of the frontend
 export enum Routs {
     HOME = "/",
+    CATEGORY_PAGE = "/category/CATEGORY_ID",
+    PRODUCT_PAGE = "/product/PRODUCT_ID",
 }
-
-// endpoints of the backend
-export enum Endpoints {}
