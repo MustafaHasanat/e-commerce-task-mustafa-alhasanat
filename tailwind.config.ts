@@ -20,6 +20,16 @@ const config: Config = {
             gray: "#7c7c7c",
             lightGray: "#f5f5f5",
         },
+        extend: {
+            listStyleType: {
+                star: '"★  "',
+            },
+            colors: {
+                gold: {
+                    DEFAULT: "#FFD700",
+                },
+            },
+        },
     },
     darkMode: "class",
     plugins: [heroui({})],

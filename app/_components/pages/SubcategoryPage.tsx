@@ -31,7 +31,7 @@ const SubcategoryPage = React.memo(() => {
         <Container className="flex flex-col gap-5 justify-center items-center">
             <SharedText variant="h3">{data?.name} Subcategory</SharedText>
 
-            <section className="grid grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 desktop:grid-cols-6 gap-5 p-3">
+            <section className="grid mobile:grid-cols-2 tablet:grid-cols-3 laptop:grid-cols-4 desktop:grid-cols-6 gap-5 p-3">
                 {data?.productResults?.results?.map((product, index) => (
                     <ProductCard
                         key={uniqueId + index + product?.asin + "product-type"}

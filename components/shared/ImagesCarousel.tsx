@@ -15,12 +15,18 @@ export const ImagesCarousel = ({ images, className }: Props) => {
     const id = useId();
 
     return (
-        <Carousel>
+        <Carousel
+            className={cn(
+                "aspect-square flex flex-col justify-center items-center",
+                "border-2 rounded-xl",
+                className,
+            )}
+        >
             {images?.map((imageUrl, index) => (
                 <SharedImage
                     key={id + index}
                     src={imageUrl}
-                    className={cn("w-full h-[40vh]", className)}
+                    className={cn("w-full h-[40vh]")}
                     alt={imageUrl}
                     width={300}
                     height={300}
