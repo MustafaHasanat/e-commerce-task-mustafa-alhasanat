@@ -98,7 +98,7 @@ export const useGetSubcategoryDetails = ({ page }: PaginatedParams) => {
     );
 
     return useQuery({
-        queryKey: ["GetSubcategoryDetails", page, isHydrated],
+        queryKey: ["GetSubcategoryDetails", id, page, isHydrated],
         queryFn: async () => {
             try {
                 const response = await client.post(formData);

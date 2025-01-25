@@ -1,4 +1,4 @@
-# E-Commerce Website
+# Light Amazon E-Commerce Website
 
 ## Pre-requirements
 
