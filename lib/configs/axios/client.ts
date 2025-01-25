@@ -104,7 +104,8 @@ class AxiosClient<GenericReq, GenericRes = {}> {
                 return res?.response?.data as GenericRes;
             });
 
-    gql = async () => await this.gqlInstance.request(this.query, { first: 10 });
+    gql = async (variables?: { [key: string]: string }) =>
+        await this.gqlInstance.request(this.query, { first: 10, ...variables });
 }
 
 export default AxiosClient;

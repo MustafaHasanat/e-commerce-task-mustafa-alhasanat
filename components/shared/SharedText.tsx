@@ -5,7 +5,7 @@ import React, { CSSProperties } from "react";
 
 interface Props {
     children: React.ReactNode;
-    variant?: "h1" | "h2" | "h3" | "p" | "span";
+    variant?: "h1" | "h2" | "h3" | "h4" | "p" | "span";
     className?: string;
     styles?: CSSProperties;
 }
@@ -17,10 +17,12 @@ export const SharedText: React.FC<React.HTMLAttributes<HTMLParagraphElement> & P
     variant = "p",
     ...rest
 }: Props) => {
+    const sharedClassName = "font-bold capitalize";
+
     if (variant === "h1")
         return (
             <h1
-                className={cn(`${className}`, "text-[60px] font-bold capitalize")}
+                className={cn(className, sharedClassName, "text-[60px]")}
                 style={{
                     ...styles,
                 }}
@@ -33,7 +35,7 @@ export const SharedText: React.FC<React.HTMLAttributes<HTMLParagraphElement> & P
     if (variant === "h2")
         return (
             <h2
-                className={cn(`${className}`, "text-[40px] font-bold capitalize")}
+                className={cn(className, sharedClassName, "text-[40px]")}
                 style={{
                     ...styles,
                 }}
@@ -46,7 +48,7 @@ export const SharedText: React.FC<React.HTMLAttributes<HTMLParagraphElement> & P
     if (variant === "h3")
         return (
             <h3
-                className={cn(`${className}`, "text-[30px] font-bold capitalize")}
+                className={cn(className, sharedClassName, "text-[30px]")}
                 style={{
                     ...styles,
                 }}
@@ -56,10 +58,23 @@ export const SharedText: React.FC<React.HTMLAttributes<HTMLParagraphElement> & P
             </h3>
         );
 
+    if (variant === "h4")
+        return (
+            <h4
+                className={cn(className, sharedClassName, "text-[20px]")}
+                style={{
+                    ...styles,
+                }}
+                {...rest}
+            >
+                {children}
+            </h4>
+        );
+
     if (variant === "span")
         return (
             <span
-                className={`${className}`}
+                className={className}
                 style={{
                     ...styles,
                 }}
@@ -71,7 +86,7 @@ export const SharedText: React.FC<React.HTMLAttributes<HTMLParagraphElement> & P
 
     return (
         <p
-            className={`${className}`}
+            className={className}
             style={{
                 ...styles,
             }}

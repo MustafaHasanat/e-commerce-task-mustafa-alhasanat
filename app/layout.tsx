@@ -4,8 +4,8 @@ import type { Metadata } from "next";
 import { Providers } from "@/components/providers/providers";
 import "@/lib/styles/globals.css";
 import { appMetadata } from "@/lib/constants";
-import Header from "./_components/Header";
-import Footer from "./_components/Footer";
+import Header from "./_components/blocks/Header";
+import Footer from "./_components/blocks/Footer";
 
 /**
  * Setup the website metadata

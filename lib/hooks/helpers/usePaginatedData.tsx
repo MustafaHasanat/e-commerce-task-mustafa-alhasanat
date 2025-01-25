@@ -2,19 +2,18 @@
 "use client";
 
 import { Pagination } from "@heroui/react";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { UseQueryResult } from "@tanstack/react-query";
+import { PaginatedParams, SubcategoryDetailsType } from "products";
 
 interface Props<FnParamsType, FnReturnType> {
-    useGetterFn: (params: FnParamsType) => UseQueryResult<FnReturnType, Error>;
+    useGetterFn: (params: FnParamsType & PaginatedParams) => UseQueryResult<FnReturnType, Error>;
     params: any;
-    pageSize: number;
 }
 
 type ReturnProps<FnReturnType> = {
     Pagination: () => React.JSX.Element;
     currentPage: number;
-    total: number;
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
     data?: FnReturnType;
 } & Omit<UseQueryResult<FnReturnType, Error>, "data">;
@@ -22,7 +21,6 @@ type ReturnProps<FnReturnType> = {
 export function usePaginatedData<FnParamsType, FnReturnType>({
     params,
     useGetterFn,
-    pageSize,
 }: Props<FnParamsType, FnReturnType>): ReturnProps<FnReturnType> {
     const [currentPage, setCurrentPage] = useState(1);
     const { data, ...rest } = useGetterFn({ ...params, page: currentPage });
@@ -31,31 +29,25 @@ export function usePaginatedData<FnParamsType, FnReturnType>({
         setCurrentPage(page);
     };
 
-    const total = useMemo(() => {
-        if (!(data as any)?.data?.length) return 0;
-        return Math.ceil((data as any)?.count / params?.page_size);
-    }, [data, params?.page_size]);
-
-    const PaginationComponent = () =>
-        (data as any) && (data as any)?.data?.length !== 0 && (data as any)?.count > pageSize ? (
-            <div className="w-full m-auto p-3 flex justify-center items-center">
-                <Pagination
-                    total={total}
-                    page={currentPage}
-                    onChange={handleChange}
-                    size="lg"
-                    siblings={1}
-                />
-            </div>
-        ) : (
-            <></>
-        );
+    const PaginationComponent = () => (
+        <div className="w-full m-auto p-3 flex justify-center items-center">
+            <Pagination
+                total={(data as SubcategoryDetailsType)?.productResults?.pageInfo?.totalPages}
+                page={currentPage}
+                onChange={handleChange}
+                size="lg"
+                showControls
+                loop
+                siblings={1}
+                initialPage={1}
+            />
+        </div>
+    );
 
     return {
         Pagination: PaginationComponent,
         currentPage,
         setCurrentPage,
-        total,
         data,
         ...(rest as Omit<UseQueryResult<FnReturnType, Error>, "data">),
     };

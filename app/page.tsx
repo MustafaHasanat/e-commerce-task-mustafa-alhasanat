@@ -2,7 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { LoadingSpinner } from "@/components";
 
-const LandingPage = dynamic(() => import("@/app/_components/LandingPage"), {
+const LandingPage = dynamic(() => import("@/app/_components/pages/LandingPage"), {
     loading: () => <LoadingSpinner />,
 });
 

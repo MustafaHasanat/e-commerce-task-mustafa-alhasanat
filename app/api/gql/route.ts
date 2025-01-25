@@ -8,12 +8,15 @@ export async function POST(request: NextRequest) {
     try {
         const formData = await request.formData();
 
+        const gqlQuery = (formData.get("gqlQuery") as string) || "";
+        const variables = (formData.get("variables") as string) || null;
+
         const client = new AxiosClient<unknown, unknown>({
             baseURL: BACKEND_BASE,
-            gqlQuery: (formData.get("gqlQuery") as string) || "",
+            gqlQuery,
         });
 
-        const data = await client.gql();
+        const data = await client.gql(variables ? JSON.parse(variables) : {});
 
         return Response.json(data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

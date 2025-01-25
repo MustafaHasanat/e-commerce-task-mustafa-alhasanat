@@ -6,3 +6,10 @@ export const navbarItems = [
         href: Routs.HOME,
     },
 ];
+
+export const breadcrumbsItems = [
+    {
+        label: "home page",
+        href: Routs.HOME,
+    },
+];
