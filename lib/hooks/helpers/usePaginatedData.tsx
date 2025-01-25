@@ -4,7 +4,7 @@
 import { Pagination } from "@heroui/react";
 import React, { useState } from "react";
 import { UseQueryResult } from "@tanstack/react-query";
-import { PaginatedParams, SubcategoryDetailsType } from "products";
+import { PaginatedParams, SubcategoryDetailsType } from "@/lib/types";
 
 interface Props<FnParamsType, FnReturnType> {
     useGetterFn: (params: FnParamsType & PaginatedParams) => UseQueryResult<FnReturnType, Error>;

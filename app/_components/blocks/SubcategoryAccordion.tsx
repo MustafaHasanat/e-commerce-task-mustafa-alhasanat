@@ -3,7 +3,7 @@
 import { Routs } from "@/lib/enums";
 import { useSuperRouter } from "@/lib/hooks";
 import { Button } from "@heroui/react";
-import { SharedItem } from "products";
+import { SharedItem } from "@/lib/types";
 import React, { useId } from "react";
 
 interface Params {

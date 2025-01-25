@@ -14,6 +14,8 @@ interface Props {
 export const ImagesCarousel = ({ images, className }: Props) => {
     const id = useId();
 
+    if (!images || images?.length === 0) return null;
+
     return (
         <Carousel
             className={cn(

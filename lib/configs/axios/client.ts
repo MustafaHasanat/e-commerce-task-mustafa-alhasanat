@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 import { FRONTEND_BASE } from "@/lib/constants";
+import { AxiosContentType } from "@/lib/types";
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import { AxiosContentType } from "backend";
 import { GraphQLClient } from "graphql-request";
 
 type AxiosWrapperType<GenericRes> = {
@@ -63,7 +63,6 @@ class AxiosClient<GenericReq, GenericRes = {}> {
             )
             .then((res) => res.data)
             .catch((res) => {
-                // console.error(res);
                 return res as GenericRes;
             });
 
@@ -76,7 +75,6 @@ class AxiosClient<GenericReq, GenericRes = {}> {
             )
             .then((res) => res.data)
             .catch((res) => {
-                // console.error(res);
                 return res?.response?.data as GenericRes;
             });
 
@@ -89,7 +87,6 @@ class AxiosClient<GenericReq, GenericRes = {}> {
             )
             .then((res) => res.data)
             .catch((res) => {
-                // console.error(res);
                 return res?.response?.data as GenericRes;
             });
 

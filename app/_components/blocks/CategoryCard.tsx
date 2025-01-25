@@ -4,7 +4,7 @@ import { SharedText } from "@/components";
 import { Routs } from "@/lib/enums";
 import { useSuperRouter } from "@/lib/hooks";
 import { Card, CardFooter, CardHeader, Divider } from "@heroui/react";
-import { CategoryType } from "products";
+import { CategoryType } from "@/lib/types";
 import React from "react";
 
 interface Params {

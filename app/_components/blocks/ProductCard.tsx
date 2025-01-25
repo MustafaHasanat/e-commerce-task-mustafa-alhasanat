@@ -6,7 +6,7 @@ import { useSuperRouter } from "@/lib/hooks";
 import { fetchProductDetails } from "@/lib/hooks/data/products";
 import { useProductStore } from "@/lib/store";
 import { Card, CardBody, CardHeader, Divider, Tooltip } from "@heroui/react";
-import { ProductType } from "products";
+import { ProductType } from "@/lib/types";
 import React from "react";
 
 interface Params {

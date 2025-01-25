@@ -5,7 +5,7 @@ import { useGetSubcategoryDetails } from "@/lib/hooks/data/categories";
 import React, { useId } from "react";
 import ProductCard from "../blocks/ProductCard";
 import { usePaginatedData } from "@/lib/hooks";
-import { PaginatedParams, SubcategoryDetailsType } from "products";
+import { PaginatedParams, SubcategoryDetailsType } from "@/lib/types";
 
 const SubcategoryPage = React.memo(() => {
     const uniqueId = useId();

@@ -1,4 +1,4 @@
-import { CategoryDetailsType, CategoryType } from "products";
+import { CategoryDetailsType, CategoryType } from "@/lib/types";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 

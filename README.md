@@ -27,3 +27,9 @@ You need to have the following done before running the project:
 ## Live demo
 
 [Visit the App](https://e-commerce-task-mustafa-alhasanat.vercel.app)
+
+## Run the unit tests
+
+- Run the test cases:
+
+  `npm run test`

@@ -2,7 +2,6 @@
 
 import { CSSProperties, useEffect, useState } from "react";
 import Image from "next/image";
-import placeholderImage from "@/public/images/image-placeholder.png";
 import { cn } from "@heroui/theme";
 
 interface Props {
@@ -32,10 +31,6 @@ export const SharedImage: React.FC<React.HTMLAttributes<HTMLDivElement> & Props>
 }) => {
     const [imageSrc, setImageSrc] = useState(src);
 
-    const errorHandler = () => {
-        setImageSrc(placeholderImage);
-    };
-
     useEffect(() => {
         setImageSrc(src);
     }, [src]);
@@ -47,11 +42,10 @@ export const SharedImage: React.FC<React.HTMLAttributes<HTMLDivElement> & Props>
             {...rest}
         >
             <Image
-                src={imageSrc || placeholderImage}
+                src={imageSrc}
                 alt={alt}
                 width={width}
                 height={height}
-                onError={errorHandler}
                 priority={priority}
                 style={{
                     height: "100%",

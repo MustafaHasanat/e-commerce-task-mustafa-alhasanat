@@ -2,6 +2,7 @@
 const nextConfig = {
     experimental: {
         serverComponentsExternalPackages: ["crypto-js"],
+        forceSwcTransforms: true,
     },
 
     reactStrictMode: true,

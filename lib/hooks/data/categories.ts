@@ -13,7 +13,7 @@ import {
     CategoryType,
     PaginatedParams,
     SubcategoryDetailsType,
-} from "products";
+} from "@/lib/types";
 
 export const useGetCategories = () => {
     const { categories, isHydrated, setCategories } = useCategoryStore();
@@ -34,7 +34,6 @@ export const useGetCategories = () => {
 
                 return response?.amazonProductCategoryTaxonomy || categories || [];
             } catch (error) {
-                console.error(error);
                 return [];
             }
         },
@@ -72,7 +71,6 @@ export const useGetCategoryDetails = () => {
 
                 return response?.amazonProductCategory || undefined;
             } catch (error) {
-                console.error(error);
                 return undefined;
             }
         },
@@ -106,7 +104,6 @@ export const useGetSubcategoryDetails = ({ page }: PaginatedParams) => {
                 const response = await client.post(formData);
                 return response?.amazonProductCategory || undefined;
             } catch (error) {
-                console.error(error);
                 return undefined;
             }
         },
